@@ -5,13 +5,13 @@
 
 makeCacheMatrix <- function(x = matrix()) {
         inv <- NULL # store the inversion result
-        set <- function(y){
+        set <- function(y){ # set a matrix to object created by this function
                 x <<- y
                 inv <<- NULL
         }
-        get <-function() x
+        get <-function() x # retrun the input matrix 
         setinv <- function(inverse) inv <<- inverse # set the inversed matrix
-        getinv <- function() inv
+        getinv <- function() inv # return the inversed matrix 
         list(set = set, get = get, setinv = setinv, getinv = getinv)
 }
 
@@ -20,13 +20,13 @@ makeCacheMatrix <- function(x = matrix()) {
 
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
-        inv <- x$getinv()
-        if(!is.null(inv)){
+        inv <- x$getinv() # get the inversed matrix from x 
+        if(!is.null(inv)){ # check if the inversion result been calculated 
                 message("getting cached data")
-                return(inv)
+                return(inv) # return the calculated inversion 
         }
-        data <- x$get()
-        inv <- solve(data, ...)
-        x$setinv(inv)
-        inv
+        data <- x$get() # get the maxtrix object
+        inv <- solve(data, ...) # use solve function compute the inverse 
+        x$setinv(inv) # set inversed matrix to the object
+        inv # return the result
 }
